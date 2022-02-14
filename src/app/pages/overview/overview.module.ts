@@ -8,12 +8,15 @@ import { OverviewPageRoutingModule } from './overview-routing.module';
 
 import { OverviewPage } from './overview.page';
 
+import { NewProjectModalPageModule } from '../new-project-modal/new-project-modal.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OverviewPageRoutingModule
+    OverviewPageRoutingModule,
+    NewProjectModalPageModule
   ],
   declarations: [OverviewPage]
 })
