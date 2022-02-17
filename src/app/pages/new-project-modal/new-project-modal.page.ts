@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 
 import { DataService } from '../../services/data.service';
 import { Project } from '../../models/project.model';
+import { ColorEvent } from 'ngx-color';
 
 @Component({
   selector: 'app-new-project-modal',
@@ -27,8 +28,8 @@ export class NewProjectModalPage implements OnInit {
   }
 
 
-  colorSelected(e){
-
+  colorSelected(event: ColorEvent){
+    this.newProject.color = event.color.hex;
   }
 
 

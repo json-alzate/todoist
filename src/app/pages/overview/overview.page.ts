@@ -22,6 +22,7 @@ export class OverviewPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadData();
   }
 
 

@@ -2,17 +2,18 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
+
       <ion-button (click)="close()">
-        Cancelar
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
+
     </ion-buttons>
 
-    <ion-title>newProjectModal</ion-title>
+    <ion-title>Nuevo proyecto</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="save()" [disabled]="newProject.name === ''" >
-        <ion-icon slot="start" name="add"></ion-icon>
-        Guardar
+      <ion-button (click)="save()" [disabled]="newProject.name === ''">
+        <ion-icon slot="icon-only" name="save"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -26,12 +27,14 @@
     <ion-input [(ngModel)]="newProject.name"></ion-input>
   </ion-item>
 
-  <ion-item button (click)="showColors = !showColors" detail="false"  class="ion-padding-bottom">
+  <ion-item button (click)="showColors = !showColors" detail="false" class="ion-padding-bottom">
+    <ion-icon slot="start" name="color-palette-outline"></ion-icon>
     <ion-label>Color</ion-label>
-    <div class="color-previw" slot="end"  [style.background]="newProject.color"></div>
+    <div class="color-preview" slot="end" [style.background]="newProject.color"></div>
   </ion-item>
 
-  <color-circle  *ngIf="showColors" width="100%" [color]="newProject.color" (onChange)="colorSelected($event)"></color-circle>
+  <color-circle *ngIf="showColors" width="100%" [color]="newProject.color" (onChange)="colorSelected($event)">
+  </color-circle>
 
 
 
