@@ -6,6 +6,8 @@
 
 <ion-content>
 
+  <ion-backdrop [visible]="showTaskInput" (ionBackdropTap)="showTaskInput = false"></ion-backdrop>
+
   <ion-list>
     <ion-item-divider>
       <ion-label>Proyectos</ion-label>
@@ -19,4 +21,22 @@
     <ion-label>{{ project.name }}</ion-label>
   </ion-item>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showTaskInput = true">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
+<ion-footer *ngIf="showTaskInput">
+
+  <ion-col size="12">
+    <ion-input type="text" autofocus="true" [(ngModel)]="task.name" placeholder="adicionar tarea"
+      class="ion-padding-left"></ion-input>
+  </ion-col>
+  <ion-col class="ion-no-padding ion-text-right" offset="10" size="2">
+    <ion-button (click)="saveTask()" fill="clear" shape="round">
+      <ion-icon slot="icon-only" name="arrow-up-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-footer>

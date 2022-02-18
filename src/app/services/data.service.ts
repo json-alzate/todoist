@@ -47,4 +47,27 @@ export class DataService {
 
   }
 
+
+  // Task
+
+  async addTask(task: Task) {
+    let taskArray = await this.getTaskAsArray();
+    task.id = Date.now();
+    taskArray.push(task);
+    return Storage.set({ key: TASK_KEY, value: JSON.stringify(taskArray) })
+  }
+
+  async getTasks() {
+    return this.getTaskAsArray();
+  }
+
+  private async getTaskAsArray() {
+    const tasks = await Storage.get({ key: TASK_KEY });
+    let taskArray = [];
+    if (tasks.value) {
+      taskArray = JSON.parse(tasks.value);
+    }
+    return taskArray;
+  }
+
 }

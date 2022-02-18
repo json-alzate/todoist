@@ -5,6 +5,7 @@ import { Project } from '../../models/project.model';
 import { NewProjectModalPage } from '../new-project-modal/new-project-modal.page';
 
 import { DataService } from '../../services/data.service';
+import { Task } from 'src/app/models/task.model';
 
 @Component({
   selector: 'app-overview',
@@ -14,6 +15,14 @@ import { DataService } from '../../services/data.service';
 export class OverviewPage implements OnInit {
 
   projects: Project[];
+  showTaskInput = false;
+
+  task: Task = {
+    name: '',
+    project: 0,
+    due: '',
+    priority: 4
+  };
 
   constructor(
     private modalController: ModalController,
@@ -33,6 +42,8 @@ export class OverviewPage implements OnInit {
   }
 
 
+
+
   async addCategory() {
     const modal = await this.modalController.create({
       component: NewProjectModalPage,
@@ -50,6 +61,21 @@ export class OverviewPage implements OnInit {
       this.loadData();
     }
 
+  }
+
+
+  saveTask() {
+
+    this.dataService.addTask(this.task).then(() => {
+      this.showTaskInput = false;
+      this.loadData();
+      this.task = {
+        name: '',
+        project: 0,
+        due: '',
+        priority: 4
+      };
+    });
 
   }
 
