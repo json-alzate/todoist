@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IonRouterOutlet, ModalController } from '@ionic/angular';
+import { IonRouterOutlet, ModalController, PopoverController } from '@ionic/angular';
 
 import { Project } from '../../models/project.model';
 import { NewProjectModalPage } from '../new-project-modal/new-project-modal.page';
 
 import { DataService } from '../../services/data.service';
 import { Task } from 'src/app/models/task.model';
+
+
+import { ProjectPopoverPage } from '../../pages/project-popover/project-popover.page';
+import { PriorityPopoverPage } from '../../pages/priority-popover/priority-popover.page';
 
 @Component({
   selector: 'app-overview',
@@ -19,15 +23,16 @@ export class OverviewPage implements OnInit {
 
   task: Task = {
     name: '',
-    project: 0,
     due: '',
-    priority: 4
+    priority: 4,
+    projectId: 0
   };
 
   constructor(
     private modalController: ModalController,
     private ionRouterOutlet: IonRouterOutlet,
-    private dataService: DataService
+    private dataService: DataService,
+    private popoverController: PopoverController
   ) { }
 
   ngOnInit() {
@@ -45,6 +50,9 @@ export class OverviewPage implements OnInit {
 
 
   async addCategory() {
+
+    console.log('click add category');
+
     const modal = await this.modalController.create({
       component: NewProjectModalPage,
       presentingElement: this.ionRouterOutlet.nativeEl,
@@ -65,18 +73,55 @@ export class OverviewPage implements OnInit {
 
 
   saveTask() {
+    const fakeProject = this.task.project;
+    this.task.projectId = this.task.project ? fakeProject.id : null;
 
     this.dataService.addTask(this.task).then(() => {
       this.showTaskInput = false;
       this.loadData();
       this.task = {
         name: '',
-        project: 0,
         due: '',
+        projectId: 0,
         priority: 4
       };
     });
 
+  }
+
+
+  async openProjectPopover(event: Event) {
+    const popover = await this.popoverController.create({
+      component: ProjectPopoverPage,
+      event
+    });
+
+    await popover.present();
+    popover.onDidDismiss().then(result => {      
+      if (result.data && result.data.project) {
+        this.task.project = result.data.project;
+      }
+    });
+  }
+
+  async openPriorityPopover(event: Event) {
+    const popover = await this.popoverController.create({
+      component: PriorityPopoverPage,
+      event
+    });
+
+    await popover.present();
+    popover.onDidDismiss().then(result => {
+      if (result.data && result.data.priority) {
+        this.task.priority = result.data.priority;
+      }
+    });
+  }
+
+
+  getTaskColor() {
+    const priorities = this.dataService.getPriorities();
+    return priorities.find(priority => priority.value === this.task.priority)?.color;
   }
 
 

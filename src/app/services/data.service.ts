@@ -28,7 +28,6 @@ export class DataService {
 
   private async getProjectsAsArray(addInbox = true) {
     const projects = await Storage.get({ key: PROJECT_KEY });
-    console.log('projects', projects)
     let projectsArray = [];
     if (projects.value) {
       projectsArray = JSON.parse(projects.value);
@@ -69,5 +68,28 @@ export class DataService {
     }
     return taskArray;
   }
+
+  // tools
+  getPriorities() {
+    return [
+      {
+        value: 1,
+        color: '#ff0000'
+      },
+      {
+        value: 2,
+        color: '#ff9d46'
+      },
+      {
+        value: 3,
+        color: '#0000ff'
+      },
+      {
+        value: 4,
+        color: '#737373'
+      }
+    ];
+  }
+
 
 }

@@ -9,6 +9,8 @@ import { OverviewPageRoutingModule } from './overview-routing.module';
 import { OverviewPage } from './overview.page';
 
 import { NewProjectModalPageModule } from '../new-project-modal/new-project-modal.module';
+import { PriorityPopoverPageModule } from '../priority-popover/priority-popover.module';
+import { ProjectPopoverPageModule } from "../project-popover/project-popover.module";
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { NewProjectModalPageModule } from '../new-project-modal/new-project-moda
     FormsModule,
     IonicModule,
     OverviewPageRoutingModule,
-    NewProjectModalPageModule
+    NewProjectModalPageModule,
+    PriorityPopoverPageModule,
+    ProjectPopoverPageModule
   ],
   declarations: [OverviewPage]
 })

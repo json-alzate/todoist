@@ -1,0 +1,12 @@
+<ion-content>
+
+  <ion-list>
+    <ion-item button *ngFor="let priority of priorities" detail="false" (click)="select(priority)">
+
+      <ion-icon slot="start" name="flag" [style.color]="priority.color"></ion-icon>
+
+      <ion-label>Prioridad: {{ priority.value }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
