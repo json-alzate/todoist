@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { IonRouterOutlet, ModalController, PopoverController } from '@ionic/angular';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { IonDatetime, IonRouterOutlet, ModalController, PopoverController } from '@ionic/angular';
 
 import { Project } from '../../models/project.model';
 import { NewProjectModalPage } from '../new-project-modal/new-project-modal.page';
@@ -23,10 +23,14 @@ export class OverviewPage implements OnInit {
 
   task: Task = {
     name: '',
-    due: '',
+    due: new Date().toISOString(),
     priority: 4,
     projectId: 0
   };
+
+  @ViewChild('due', { static: false}) due: ElementRef;
+
+
 
   constructor(
     private modalController: ModalController,
@@ -97,7 +101,7 @@ export class OverviewPage implements OnInit {
     });
 
     await popover.present();
-    popover.onDidDismiss().then(result => {      
+    popover.onDidDismiss().then(result => {
       if (result.data && result.data.project) {
         this.task.project = result.data.project;
       }
@@ -124,6 +128,11 @@ export class OverviewPage implements OnInit {
     return priorities.find(priority => priority.value === this.task.priority)?.color;
   }
 
+
+  selectDue(){   
+    console.log(this.due);     
+    this.due.nativeElement.click();
+  }
 
 
 }

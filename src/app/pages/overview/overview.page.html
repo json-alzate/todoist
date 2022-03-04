@@ -31,6 +31,9 @@
 </ion-content>
 <ion-footer *ngIf="showTaskInput">
 
+  <ion-datetime displayFormat="MM DD YY" [(ngModel)]="task.due" #due></ion-datetime>
+
+
   <ion-row>
     <ion-col size="12">
       <ion-input type="text" autofocus="true" [(ngModel)]="task.name" placeholder="adicionar tarea"
@@ -46,6 +49,10 @@
         <div class="color-preview-small" slot="start" [style.background]="task.project?.color" *ngIf="task.project">
         </div>
         {{ task.project ? task.project?.name : 'Inbox' }}
+      </ion-button>
+
+      <ion-button (click)="selectDue()" fill="outline" size="small">
+        {{ task.due | date }}
       </ion-button>
 
       <ion-button (click)="openPriorityPopover($event)" fill="outline" size="small">
